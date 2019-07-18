@@ -1,20 +1,19 @@
-LocateLibrary
+# LocateLibrary
 
-# 概述
 >一个帮助 Android App 进行终端定位的辅助aar库
 
 **Demo下载**
 [demo apk下载](https://github.com/youyutorch/LocateLibrary/blob/master/LocateLibrary/demo/app-debug.apk)、[最新aar包下载](https://github.com/youyutorch/LocateLibrary/blob/master/LocateLibrary/demo/CTLocateLib_V1.0.0_20190711.aar)
 
 
-# 功能介绍
+## 功能介绍
 1. 集成高德定位API，用于公网环境下获取终端经纬度信息及具体地址信息。
 2. 使用GPS、AGPS模块，获取终端经纬度信息。
 3. 使用SIM卡通信模块，获取终端基站相关信息。
 4. 使用wifi通信模块，获取终端wifi相关信息。
 5. 使用OrmLite存储定位相关信息，支持离线获取最新定位信息，支持定位信息收集。
 
-# 基础使用
+## 基础使用
 1. 下载最新**aar包**，放到工程**libs**文件夹下，**build.gradle**文件下添加如下配置
 ```
  android {
@@ -116,9 +115,9 @@ public class LibLocateApplication extends Application {
 -dontwarn com.j256.ormlite.**
 ```
 
-# 进阶用法
+## 进阶用法
 
-## 获取定位
+### 获取定位
 用于获取单次终端定位信息
 
 1. 可通过getLastLocation获取最新一次更新的位置信息
@@ -144,7 +143,7 @@ public class CTLocateOption {
 }
 ```
 
-## 收集定位
+### 收集定位
 当单次终端定位信息不准确时，可能需要通过在不同时间多次获取定位，来提高定位信息准确性。
 此处常用于终端基站信息的获取
 
@@ -229,7 +228,7 @@ public class CTLocateOption {
 
 ```
 
-## 混合定位
+### 混合定位
 在需要同时获取多种类型终端信息时使用，目前只支持同时获取所有类型**CTLocateConstant.TYPE_ALL_LOCATE**
 
 1. 调用getLocation获取多种类型定位
@@ -282,6 +281,19 @@ public class CTLocateOption {
 混合定位时支持两种定位模式：
 * 初始定位模式：一般时间较长，此时基站信息使用收集方式获取
 * 实时定位模式：一般时间较短，此时直接获取基站信息，不再调用收集接口
+
+## 组件化开发
+当需要使用终端定位library做二次定位开发时，可下载源码，进行二次组件化开发。
+
+在工程的**gradle.properties**文件中，增加**isModule**属性用于集成模式和组件模式的快捷切换
+```
+# 每次更改“isModule”的值后，需要点击 "Sync Project" 按钮
+# isModule是“集成开发模式”和“组件开发模式”的切换开关
+isModule=false
+```
+
+当需要把libary单独作为组件开发时，只需将isModule属性改为true即可。
+
 
 
 
