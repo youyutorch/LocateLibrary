@@ -1,0 +1,75 @@
+import java.text.SimpleDateFormat
+
+if (isModule.toBoolean()) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 100
+        versionName "1.0.0"
+        if (isModule.toBoolean()) {
+            applicationId "com.centerm.lib.locate"
+        }
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            if (isModule.toBoolean()) {
+                manifest.srcFile 'src/main/module/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                //集成开发模式下排除debug文件夹中的所有Java文件
+                java {
+                    exclude 'debug/**'
+                }
+            }
+        }
+    }
+
+    if (isModule.toBoolean()) {
+        applicationVariants.all { variant ->
+            def time = new SimpleDateFormat("yyyyMMdd").format(new Date())
+            variant.outputs.all { output ->
+                outputFileName = "CTLocateLib_V${defaultConfig.versionName}_" + time + ".apk"
+            }
+        }
+    } else {
+        libraryVariants.all { variant ->
+            def time = new SimpleDateFormat("yyyyMMdd").format(new Date())
+            variant.outputs.all { output ->
+                outputFileName = "CTLocateLib_" + "V${defaultConfig.versionName}_" + time + ".aar"
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.j256.ormlite:ormlite-core:5.0'
+    implementation 'com.j256.ormlite:ormlite-android:5.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation files('libs/AMap_Location_V4.2.0_20180809.jar')
+}
