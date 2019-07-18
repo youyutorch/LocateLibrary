@@ -1,8 +1,10 @@
+LocateLibrary
+
 # 概述
 >一个帮助 Android App 进行终端定位的辅助aar库
 
 **Demo下载**
-[demo apk下载]()、[最新aar包下载]()
+[demo apk下载](https://github.com/youyutorch/LocateLibrary/blob/master/LocateLibrary/demo/app-debug.apk)、[最新aar包下载](https://github.com/youyutorch/LocateLibrary/blob/master/LocateLibrary/demo/CTLocateLib_V1.0.0_20190711.aar)
 
 
 # 功能介绍
